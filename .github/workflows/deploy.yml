@@ -52,6 +52,7 @@ jobs:
   deploy:
     permissions:
       id-token: write
+      # will allow token to read code files
       contents: read
     needs: build
     runs-on: ubuntu-latest
@@ -68,13 +69,13 @@ jobs:
       - name: Get AWS permissions
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          role-to-assume: arn:aws:iam::450226343468:role/GitHubDemo1
-          aws-region: us-east-1
+          role-to-assume: arn:aws:iam::968444076838:role/GitHubDemo1
+          aws-region: us-west-1
       - name: Deploy site
         id: deploy
         uses: ./.github/actions/deploy-s3-docker
         with:
-          bucket: gha-security-hosting-demo
+          bucket: gha-security-hosting-example
           dist-folder: ./dist
           # bucket-region: us-east-2
       - name: Output information
